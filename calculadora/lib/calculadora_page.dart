@@ -8,11 +8,14 @@ class CalculadoraPage extends StatefulWidget {
 }
 
 class _CalculadoraPageState extends State<CalculadoraPage> {
-  
   late Size tamanhoTela;
   late double alturaLinha;
   late double larguraCelula;
   late Color corFundo;
+
+  String labelValor = '';
+
+  List<double> valoresDigitados = [];
 
   @override
   Widget build(BuildContext context) {
@@ -26,120 +29,206 @@ class _CalculadoraPageState extends State<CalculadoraPage> {
   }
 
   Widget corpo() {
-    return Column(
-      children: [
-        Container(
-          color: corFundo,
-          height: alturaLinha * 3,
-          width: tamanhoTela.width,
-        ),
-        const Divider(
-          color: Colors.black,
-          height: 1,
-        ),
-        criaLinha(
-          altura: alturaLinha,
-          filhos: [
-            criaCelula(
-              largura: larguraCelula,
-              texto: 'AC',
+    return Container(
+      color: corFundo,
+      child: Column(
+        children: [
+          SizedBox(
+            height: alturaLinha * 3,
+            width: tamanhoTela.width,
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                      reverse: true,
+                      itemCount: valoresDigitados.length,
+                      itemBuilder: (context, index) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              valoresDigitados[index].toString(),
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 30,
+                              ),
+                            )
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        labelValor,
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 30,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-            criaCelula(
-              largura: larguraCelula,
-              texto: '()',
-            ),
-            criaCelula(
-              largura: larguraCelula,
-              texto: '%',
-            ),
-            criaCelula(
-              largura: larguraCelula,
-              texto: '/',
-            ),
-          ],
-        ),
-        criaLinha(
-          altura: alturaLinha,
-          filhos: [
-            criaCelula(
-              largura: larguraCelula,
-              texto: '7',
-            ),
-            criaCelula(
-              largura: larguraCelula,
-              texto: '8',
-            ),
-            criaCelula(
-              largura: larguraCelula,
-              texto: '9',
-            ),
-            criaCelula(
-              largura: larguraCelula,
-              texto: '*',
-            ),
-          ],
-        ),
-        criaLinha(
-          altura: alturaLinha,
-          filhos: [
-            criaCelula(
-              largura: larguraCelula,
-              texto: '4',
-            ),
-            criaCelula(
-              largura: larguraCelula,
-              texto: '5',
-            ),
-            criaCelula(
-              largura: larguraCelula,
-              texto: '6',
-            ),
-            criaCelula(
-              largura: larguraCelula,
-              texto: '-',
-            ),
-          ],
-        ),
-        criaLinha(
-          altura: alturaLinha,
-          filhos: [
-            criaCelula(
-              largura: larguraCelula,
-              texto: '1',
-            ),
-            criaCelula(
-              largura: larguraCelula,
-              texto: '2',
-            ),
-            criaCelula(
-              largura: larguraCelula,
-              texto: '3',
-            ),
-            criaCelula(
-              largura: larguraCelula,
-              texto: '+',
-            ),
-          ],
-        ),
-        criaLinha(altura: alturaLinha, filhos: [
-          criaCelula(
-            largura: larguraCelula,
-            texto: '+/-',
           ),
-          criaCelula(
-            largura: larguraCelula,
-            texto: '0',
+          const Divider(
+            color: Colors.black,
+            height: 1,
           ),
-          criaCelula(
-            largura: larguraCelula,
-            texto: ',',
+          criaLinha(
+            altura: alturaLinha,
+            filhos: [
+              InkWell(
+                onTap: () {
+                  _limparTexto();
+                },
+                child: criaCelula(
+                  texto: labelValor.isNotEmpty ? 'AC' : 'C',
+                  corFundo: Colors.orange,
+                  corTexto: Colors.white,
+                ),
+              ),
+              criaCelula(
+                texto: '()',
+                corFundo: Colors.orange,
+                corTexto: Colors.white,
+              ),
+              criaCelula(
+                texto: '%',
+                corFundo: Colors.orange,
+                corTexto: Colors.white,
+              ),
+              criaCelula(
+                texto: '/',
+                corFundo: Colors.orange,
+                corTexto: Colors.white,
+              ),
+            ],
           ),
-          criaCelula(
-            largura: larguraCelula,
-            texto: '=',
+          criaLinha(
+            altura: alturaLinha,
+            filhos: [
+              InkWell(
+                onTap: () {
+                  _adicionaCaracter('7');
+                },
+                child: criaCelula(texto: '7'),
+              ),
+              InkWell(
+                onTap: () {
+                  _adicionaCaracter('8');
+                },
+                child: criaCelula(texto: '8'),
+              ),
+              InkWell(
+                onTap: () {
+                  _adicionaCaracter('9');
+                },
+                child: criaCelula(texto: '9'),
+              ),
+              criaCelula(
+                texto: '*',
+                corFundo: Colors.orange,
+                corTexto: Colors.white,
+              ),
+            ],
           ),
-        ]),
-      ],
+          criaLinha(
+            altura: alturaLinha,
+            filhos: [
+              InkWell(
+                onTap: () {
+                  _adicionaCaracter('4');
+                },
+                child: criaCelula(texto: '4'),
+              ),
+              InkWell(
+                child: criaCelula(texto: '5'),
+                onTap: () {
+                  _adicionaCaracter('5');
+                },
+              ),
+              InkWell(
+                child: criaCelula(texto: '6'),
+                onTap: () {
+                  _adicionaCaracter('6');
+                },
+              ),
+              criaCelula(
+                texto: '-',
+                corFundo: Colors.orange,
+                corTexto: Colors.white,
+              ),
+            ],
+          ),
+          criaLinha(
+            altura: alturaLinha,
+            filhos: [
+              InkWell(
+                child: criaCelula(texto: '1'),
+                onTap: () {
+                  _adicionaCaracter('1');
+                },
+              ),
+              InkWell(
+                child: criaCelula(texto: '2'),
+                onTap: () {
+                  _adicionaCaracter('2');
+                },
+              ),
+              InkWell(
+                child: criaCelula(texto: '3'),
+                onTap: () {
+                  _adicionaCaracter('3');
+                },
+              ),
+              InkWell(
+                onTap: () {
+                  _somar();
+                },
+                child: criaCelula(
+                  texto: '+',
+                  corFundo: Colors.orange,
+                  corTexto: Colors.white,
+                ),
+              ),
+            ],
+          ),
+          criaLinha(altura: alturaLinha, filhos: [
+            criaCelula(
+              texto: '+/-',
+              corFundo: Colors.orange,
+              corTexto: Colors.white,
+            ),
+            InkWell(
+              child: criaCelula(texto: '0'),
+              onTap: () {
+                _adicionaCaracter('0');
+              },
+            ),
+            InkWell(
+              onTap: () {
+                _adicionaCaracter(',');
+              },
+              child: criaCelula(
+                texto: ',',
+                corFundo: Colors.orange,
+                corTexto: Colors.white,
+              ),
+            ),
+            criaCelula(
+              texto: '=',
+              corFundo: Colors.green,
+              corTexto: Colors.white,
+            ),
+          ]),
+        ],
+      ),
     );
   }
 
@@ -147,11 +236,11 @@ class _CalculadoraPageState extends State<CalculadoraPage> {
     required double altura,
     required List<Widget> filhos,
   }) {
-    Widget linha = Container(
-      color: corFundo,
+    Widget linha = SizedBox(
       height: alturaLinha,
       width: tamanhoTela.width,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: filhos,
       ),
     );
@@ -160,20 +249,62 @@ class _CalculadoraPageState extends State<CalculadoraPage> {
   }
 
   Widget criaCelula({
-    double? altura,
-    required double largura,
     required String texto,
+    Color? corFundo,
+    Color? corTexto,
   }) {
-    Widget celula = SizedBox(      
-      height: altura,
-      width: largura,
-      child: Text(
-        texto,
-        textAlign: TextAlign.center,
-        style: const TextStyle(fontSize: 30),
+    Widget celula = Container(
+      height: alturaLinha - 16,
+      width: larguraCelula - 16,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(alturaLinha / 2),
+        color: corFundo ?? Colors.grey,
+      ),
+      child: Center(
+        child: Text(
+          texto,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 30,
+            color: corTexto ?? Colors.black,
+          ),
+        ),
       ),
     );
 
     return celula;
+  }
+
+  _adicionaCaracter(String caracter) {
+    if (caracter == '0' && labelValor == '0') {
+      return;
+    }
+
+    if (caracter == ',' && labelValor.contains(',')) {
+      return;
+    }
+
+    if (labelValor.length == 20) {
+      return;
+    }
+
+    setState(() {
+      labelValor = '$labelValor$caracter';
+    });
+  }
+
+  _somar() {
+    double valor1 = double.parse(labelValor);
+    valoresDigitados.add(valor1);
+
+    setState(() {
+      labelValor = '';
+    });
+  }
+
+  _limparTexto() {
+    setState(() {
+      labelValor = '';
+    });
   }
 }
