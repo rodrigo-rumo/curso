@@ -1,3 +1,4 @@
+import 'package:calculadora/operador.dart';
 import 'package:flutter/material.dart';
 
 class CalculadoraPage extends StatefulWidget {
@@ -15,7 +16,8 @@ class _CalculadoraPageState extends State<CalculadoraPage> {
 
   String labelValor = '';
 
-  List<double> valoresDigitados = [];
+  List<String> valoresDigitados = [];
+  late Operador operador;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,6 @@ class _CalculadoraPageState extends State<CalculadoraPage> {
                 children: [
                   Expanded(
                     child: ListView.builder(
-                      reverse: true,
                       itemCount: valoresDigitados.length,
                       itemBuilder: (context, index) {
                         return Row(
@@ -88,7 +89,7 @@ class _CalculadoraPageState extends State<CalculadoraPage> {
                   _limparTexto();
                 },
                 child: criaCelula(
-                  texto: labelValor.isNotEmpty ? 'AC' : 'C',
+                  texto: (labelValor.isNotEmpty || valoresDigitados.isNotEmpty) ? 'AC' : 'C',
                   corFundo: Colors.orange,
                   corTexto: Colors.white,
                 ),
@@ -103,10 +104,15 @@ class _CalculadoraPageState extends State<CalculadoraPage> {
                 corFundo: Colors.orange,
                 corTexto: Colors.white,
               ),
-              criaCelula(
-                texto: '/',
-                corFundo: Colors.orange,
-                corTexto: Colors.white,
+              InkWell(
+                onTap: () {
+                  _adicionarValor(op: Operador.divisao);
+                },
+                child: criaCelula(
+                  texto: '/',
+                  corFundo: Colors.orange,
+                  corTexto: Colors.white,
+                ),
               ),
             ],
           ),
@@ -131,10 +137,15 @@ class _CalculadoraPageState extends State<CalculadoraPage> {
                 },
                 child: criaCelula(texto: '9'),
               ),
-              criaCelula(
-                texto: '*',
-                corFundo: Colors.orange,
-                corTexto: Colors.white,
+              InkWell(
+                onTap: () {
+                  _adicionarValor(op: Operador.multiplicacao);
+                },
+                child: criaCelula(
+                  texto: '*',
+                  corFundo: Colors.orange,
+                  corTexto: Colors.white,
+                ),
               ),
             ],
           ),
@@ -159,10 +170,15 @@ class _CalculadoraPageState extends State<CalculadoraPage> {
                   _adicionaCaracter('6');
                 },
               ),
-              criaCelula(
-                texto: '-',
-                corFundo: Colors.orange,
-                corTexto: Colors.white,
+              InkWell(
+                onTap: () {
+                  _adicionarValor(op: Operador.subtracao);
+                },
+                child: criaCelula(
+                  texto: '-',
+                  corFundo: Colors.orange,
+                  corTexto: Colors.white,
+                ),
               ),
             ],
           ),
@@ -189,7 +205,7 @@ class _CalculadoraPageState extends State<CalculadoraPage> {
               ),
               InkWell(
                 onTap: () {
-                  _somar();
+                  _adicionarValor(op: Operador.soma);
                 },
                 child: criaCelula(
                   texto: '+',
@@ -221,10 +237,15 @@ class _CalculadoraPageState extends State<CalculadoraPage> {
                 corTexto: Colors.white,
               ),
             ),
-            criaCelula(
-              texto: '=',
-              corFundo: Colors.green,
-              corTexto: Colors.white,
+            InkWell(
+              onTap: () {
+                _adicionarValor(op: Operador.resultado);
+              },
+              child: criaCelula(
+                texto: '=',
+                corFundo: Colors.green,
+                corTexto: Colors.white,
+              ),
             ),
           ]),
         ],
@@ -290,14 +311,70 @@ class _CalculadoraPageState extends State<CalculadoraPage> {
 
     setState(() {
       labelValor = '$labelValor$caracter';
+
+      if (labelValor.length == 2) {
+        if (labelValor[0] == '0') {
+          labelValor = caracter;
+        }
+      }
     });
   }
 
-  _somar() {
-    double valor1 = double.parse(labelValor);
-    valoresDigitados.add(valor1);
+  _adicionarValor({required Operador op}) {
+    if (labelValor.isEmpty && op == Operador.resultado) {
+      return;
+    }
+    
+    labelValor += labelOperador(op: op);
+    valoresDigitados.add(labelValor);
+
+    if (op != Operador.resultado) {
+      operador = op;
+
+      setState(() {
+        labelValor = '';
+      });
+    }
+
+    _calcularResultado();
+  }
+
+  _calcularResultado() {
+    if (valoresDigitados.length != 2) {
+      return;
+    }
+
+    String sValor1 = valoresDigitados[0].substring(0, valoresDigitados[0].length - 3);
+    sValor1 = sValor1.replaceAll(',', '.');
+
+    String sValor2 = valoresDigitados[1].substring(0, valoresDigitados[1].length - 3);
+    sValor2 = sValor2.replaceAll(',', '.');
+
+    final double valor1 = double.parse(sValor1);
+    final double valor2 = double.parse(sValor2);
+
+    late double resultado;
+
+    switch (operador) {
+      case Operador.soma:
+        resultado = valor1 + valor2;
+        break;
+      case Operador.subtracao:
+        resultado = valor1 - valor2;
+        break;
+      case Operador.divisao:
+        resultado = valor1 / valor2;
+        break;
+      case Operador.multiplicacao:
+        resultado = valor1 * valor2;
+        break;
+      default:
+        break;
+    }
 
     setState(() {
+      valoresDigitados.clear();
+      valoresDigitados.add('$resultado${labelOperador(op: operador)}');
       labelValor = '';
     });
   }
@@ -305,6 +382,22 @@ class _CalculadoraPageState extends State<CalculadoraPage> {
   _limparTexto() {
     setState(() {
       labelValor = '';
+      valoresDigitados.clear();
     });
+  }
+
+  String labelOperador({required Operador op}) {
+    switch (op) {
+      case Operador.soma:
+        return ' + ';
+      case Operador.subtracao:
+        return ' - ';      
+      case Operador.divisao:
+        return ' / ';
+      case Operador.multiplicacao:
+        return ' * ';
+      default:
+        return '   ';
+    }
   }
 }
