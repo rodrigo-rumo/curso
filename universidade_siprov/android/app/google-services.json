@@ -1,0 +1,199 @@
+{
+  "project_info": {
+    "project_number": "990597540324",
+    "firebase_url": "https://siprov-beneficios.firebaseio.com",
+    "project_id": "siprov-beneficios",
+    "storage_bucket": "siprov-beneficios.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:990597540324:android:dfebb64b1a96571df1bff1",
+        "android_client_info": {
+          "package_name": "br.com.rumotecnologia.siprov"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "990597540324-jvad16rrm7k5qdpoiqd9g3sasav4r63n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.rumotecnologia.siprov",
+            "certificate_hash": "19f76d698c862ec8354d7bd15a91fed6d916d516"
+          }
+        },
+        {
+          "client_id": "990597540324-7mf98f1ck2ot7ur9vjmeq0thui7v9b7q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQXPbEghANHzUvap65tpp1mTPQbQ-JXEo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "990597540324-7mf98f1ck2ot7ur9vjmeq0thui7v9b7q.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "990597540324-6nua8lh4nu8p39og181b2s9pavsg40ma.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.universidadeSiprov"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:990597540324:android:2fff78a871b7207df1bff1",
+        "android_client_info": {
+          "package_name": "br.com.siprov.associado"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "990597540324-7mf98f1ck2ot7ur9vjmeq0thui7v9b7q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQXPbEghANHzUvap65tpp1mTPQbQ-JXEo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "990597540324-7mf98f1ck2ot7ur9vjmeq0thui7v9b7q.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "990597540324-6nua8lh4nu8p39og181b2s9pavsg40ma.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.universidadeSiprov"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:990597540324:android:e45770b0a5809878f1bff1",
+        "android_client_info": {
+          "package_name": "br.com.siprov.crm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "990597540324-7mf98f1ck2ot7ur9vjmeq0thui7v9b7q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQXPbEghANHzUvap65tpp1mTPQbQ-JXEo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "990597540324-7mf98f1ck2ot7ur9vjmeq0thui7v9b7q.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "990597540324-6nua8lh4nu8p39og181b2s9pavsg40ma.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.universidadeSiprov"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:990597540324:android:dcd55b202c7e0271f1bff1",
+        "android_client_info": {
+          "package_name": "br.com.siprov.siprovtestes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "990597540324-7mf98f1ck2ot7ur9vjmeq0thui7v9b7q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQXPbEghANHzUvap65tpp1mTPQbQ-JXEo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "990597540324-7mf98f1ck2ot7ur9vjmeq0thui7v9b7q.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "990597540324-6nua8lh4nu8p39og181b2s9pavsg40ma.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.universidadeSiprov"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:990597540324:android:b5e86a5250e9922bf1bff1",
+        "android_client_info": {
+          "package_name": "br.com.siprov.universidade"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "990597540324-7mf98f1ck2ot7ur9vjmeq0thui7v9b7q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQXPbEghANHzUvap65tpp1mTPQbQ-JXEo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "990597540324-7mf98f1ck2ot7ur9vjmeq0thui7v9b7q.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "990597540324-6nua8lh4nu8p39og181b2s9pavsg40ma.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.universidadeSiprov"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
